@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study XP</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#111111" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Study XP</h1>
+      <p class="muted">1 dk = +1 XP • Günlük görevler bitince +100 XP</p>
+    </div>
+    <button id="resetBtn" class="ghost">Sifirla</button>
+  </header>
+
+  <main class="grid">
+    <!-- XP + WORK -->
+    <section class="card">
+      <div class="row">
+        <h2>Toplam XP</h2>
+        <div class="xp-pill"><span id="totalXp">0</span> XP</div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <div class="badge">Level: <b id="level">1</b></div>
+        <div class="badge">Streak: <b id="streak">0</b> 🔥</div>
+      </div>
+
+      <div class="bar-wrap">
+        <div class="bar-label">
+          <span>XP Bar</span>
+          <span class="mono"><span id="barXp">0</span> / <span id="barSize">500</span> XP</span>
+        </div>
+        <div class="bar">
+          <div id="barFill" class="bar-fill"></div>
+        </div>
+        <p class="muted small" id="levelHint"></p>
+      </div>
+
+      <hr class="sep" />
+
+      <h3>Çalişma Ekle</h3>
+
+      <div class="work-inputs">
+        <div class="field">
+          <label>Ders</label>
+          <select id="subjectSelect"></select>
+          <div class="row" style="margin-top:8px">
+            <input id="newSubjectInput" placeholder="Yeni ders ekle (örn: Biyoloji)" />
+            <button id="addSubjectBtn" class="ghost">Ekle</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Dakika</label>
+          <input id="minutesInput" type="number" min="1" placeholder="Örn: 30" />
+        </div>
+
+        <div class="field">
+          <label>Hizli</label>
+          <div class="quick">
+            <button class="chip" data-min="20">20 dk</button>
+            <button class="chip" data-min="30">30 dk</button>
+            <button class="chip" data-min="60">60 dk</button>
+            <button class="chip" data-min="90">90 dk</button>
+          </div>
+        </div>
+
+        <button id="addWorkBtn" class="primary">XP Kazan</button>
+      </div>
+
+      <p class="muted small">
+        Örn: “1 saat” = 60 dk yaz → +60 XP. Ders seçersen o derse yazilir.
+      </p>
+    </section>
+
+    <!-- DAILY QUESTS + TODAY -->
+    <section class="card">
+      <div class="row">
+        <h2>Günlük Görevler</h2>
+        <div class="muted small">Hepsi bitince +100 XP</div>
+      </div>
+
+      <div id="quests" class="quests"></div>
+
+      <div class="row">
+        <button id="completeAllBtn" class="secondary">Hepsini Bitir (+100)</button>
+        <button id="newDayBtn" class="ghost">Yeni Gün</button>
+      </div>
+
+      <hr class="sep" />
+
+      <h3>Bugün</h3>
+      <div class="stats">
+        <div class="stat">
+          <div class="muted small">Toplam dakika</div>
+          <div class="big mono" id="todayMinutes">0</div>
+        </div>
+        <div class="stat">
+          <div class="muted small">Kazanilan XP</div>
+          <div class="big mono" id="todayXp">0</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div class="row">
+          <h3>Ders dağilimi (Bugün)</h3>
+          <div class="muted small" id="todayDate"></div>
+        </div>
+        <div id="todayBySubject" class="list"></div>
+      </div>
+    </section>
+
+    <!-- STATS + STORE + HISTORY -->
+    <section class="card">
+      <div class="row">
+        <h2>İstatistik</h2>
+        <div class="muted small">Son 7 gün</div>
+      </div>
+
+      <canvas id="weekChart" width="800" height="280" class="chart"></canvas>
+      <div class="row" style="margin-top:10px">
+        <div class="badge">7 gün dakika: <b id="weekMinutes">0</b></div>
+        <div class="badge">7 gün XP: <b id="weekXp">0</b></div>
+      </div>
+
+      <hr class="sep" />
+
+      <div class="row">
+        <h2>Market / Ödüller</h2>
+        <div class="muted small">XP harcayip ödül al</div>
+      </div>
+      <div id="store" class="store"></div>
+
+      <hr class="sep" />
+      <h3>Geçmiş</h3>
+      <div id="history" class="history"></div>
+      <div class="row">
+        <button id="clearHistoryBtn" class="ghost">Geçmişi Temizle</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer muted small">
+    iPhone: Safari → Paylaş → <b>Ana Ekrana Ekle</b>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
